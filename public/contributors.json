@@ -1,0 +1,169 @@
+{
+    "contributors": {
+        "Jiawang": {
+            "url": "https://github.com/Jiawang1209",
+            "avatar": "https://github.com/Jiawang1209/profile_photo/blob/main/profile_photo.jpg"
+        }
+    },
+    "components": {
+        "AntdParagraph": [
+            "insistence"
+        ],
+        "AntdText": [
+            "insistence"
+        ],
+        "AntdTitle": [
+            "insistence"
+        ],
+        "AntdAnchor": [
+            "insistence"
+        ],
+        "AntdBreadcrumb": [
+            "insistence"
+        ],
+        "AntdDropdown": [
+            "insistence"
+        ],
+        "AntdPageHeader": [
+            "insistence"
+        ],
+        "AntdPagination": [
+            "insistence"
+        ],
+        "AntdCalendar": [
+            "insistence"
+        ],
+        "AntdCascader": [
+            "insistence"
+        ],
+        "AntdOTP": [
+            "insistence"
+        ],
+        "AntdInput": [
+            "Wangnov"
+        ],
+        "AntdMentions": [
+            "insistence"
+        ],
+        "AntdRadioGroup": [
+            "insistence"
+        ],
+        "AntdRate": [
+            "insistence"
+        ],
+        "AntdSegmentedColoring": [
+            "insistence"
+        ],
+        "AntdSlider": [
+            "insistence"
+        ],
+        "AntdSwitch": [
+            "Wangnov",
+            "insistence",
+            "GhaziXX"
+        ],
+        "AntdSelect": [
+            "Wangnov",
+            "GhaziXX"
+        ],
+        "AntdTreeSelect": [
+            "insistence"
+        ],
+        "AntdCard": [
+            "Wangnov",
+            "insistence"
+        ],
+        "AntdCardGrid": [
+            "Wangnov",
+            "insistence"
+        ],
+        "AntdCardMeta": [
+            "Wangnov",
+            "insistence"
+        ],
+        "AntdTag": [
+            "Wangnov",
+            "insistence"
+        ],
+        "AntdCheckableTag": [
+            "Wangnov",
+            "insistence",
+            "shenjinwei"
+        ],
+        "AntdQRCode": [
+            "insistence"
+        ],
+        "AntdResult": [
+            "Riggle"
+        ],
+        "AntdRibbon": [
+            "insistence"
+        ],
+        "AntdSegmented": [
+            "insistence"
+        ],
+        "AntdSpoiler": [
+            "insistence"
+        ],
+        "AntdStatistic": [
+            "insistence"
+        ],
+        "AntdCountdown": [
+            "insistence"
+        ],
+        "AntdTimeline": [
+            "Wangnov"
+        ],
+        "AntdAlert": [
+            "insistence"
+        ],
+        "AntdMessage": [
+            "insistence"
+        ],
+        "AntdNotification": [
+            "insistence"
+        ],
+        "AntdProgress": [
+            "Wangnov"
+        ],
+        "AntdCopyText": [
+            "Wangnov"
+        ],
+        "AntdBackTop": [
+            "Wangnov"
+        ],
+        "AntdWatermark": [
+            "Wangnov"
+        ],
+        "AntdTour": [
+            "Wangnov"
+        ],
+        "AntdModal": [
+            "DreamGery"
+        ],
+        "AntdSplitter": [
+            "insistence"
+        ],
+        "AntdHappyProvider": [
+            "insistence"
+        ],
+        "AntdTableBasic": [
+            "GhaziXX"
+        ],
+        "AntdTableAdvanced": [
+            "GhaziXX"
+        ],
+        "AntdTableRerender": [
+            "GhaziXX"
+        ],
+        "AntdTableServerSideMode": [
+            "GhaziXX"
+        ],
+        "AntdDatePicker": [
+            "GhaziXX"
+        ],
+        "AntdAccordion": [
+            "GhaziXX"
+        ]
+    }
+}
