@@ -21,51 +21,44 @@ imgs = [
 ]
 
 
-
-# app.layout = html.Div(
-#     [
-#         fac.AntdCenter(
-#             "",
-#             style={"height": 400,
-#                    "color": "#ffffff"}
-#         ),
-#         fac.AntdCarousel(
-#             [
-#                 html.Div(
-#                     fac.AntdCenter(
-#                         fac.AntdImage(
-#                             src=i,
-#                             height=500,
-#                             preview=False
-#                         ),
-#                         inline=True,
-#                         style={"margin": 100}
-#                     ),
-#                     style={"height": 650,
-#                            "padding": "5 5 5 5 px",
-#                            "backgroundColor": "#364d79"}
-#                 )
-#                 for i in imgs
-#             ],
-#             autoplay=True,
-#             autoplaySpeed=2000,
-#             slidesToShow=2,
-#             slidesToScroll = 2
-#             # autoplay={'dotDuration': True}
-#         ),
-#         fac.AntdCenter(
-#             "",
-#             style={"height": 400,
-#                    "color": "#ffffff"}
-#         )
-
-#     ]
-
-# )
-
-
 app.layout = html.Div(
     [
+        fac.AntdCenter(
+            "",
+            style={"height": 100,
+                   "color": "#ffffff"}
+        ),
+        fac.AntdCarousel(
+            [
+                html.Div(
+                    fac.AntdCenter(
+                        fac.AntdImage(
+                            src=i,
+                            height=500,
+                            width=550,
+                            preview=True
+                        ),
+                        inline=True,
+                        style={"margin": 100}
+                    ),
+                    style={"height": 650,
+                           "padding": "5 5 5 5 px",
+                           "backgroundColor": "#364d79"}
+                )
+                for i in imgs
+            ],
+            autoplay=True,
+            autoplaySpeed=2000,
+            slidesToShow=2,
+            slidesToScroll=2,
+            arrows=True
+            # autoplay={'dotDuration': True}
+        ),
+        fac.AntdCenter(
+            "",
+            style={"height": 100,
+                   "color": "#ffffff"}
+        ),
 
         fac.AntdLayout(
             [
@@ -96,7 +89,7 @@ app.layout = html.Div(
                                     'component': 'Item',
                                     'props': {
                                         'key': f'图标{icon}',
-                                        'title': icon.replace("antd-",""),
+                                        'title': icon.replace("antd-", ""),
                                         'icon': icon,
                                     },
                                 }
@@ -120,7 +113,10 @@ app.layout = html.Div(
                                     'antd-calculator',
                                     'antd-calendar',
                                     'antd-database',
+                                    'antd-book',
                                     'antd-history',
+                                    'antd-wechat',
+                                    'antd-github'
                                 ]
                             ],
                             mode='inline',
@@ -133,7 +129,7 @@ app.layout = html.Div(
                     collapsedWidth=60,
                     trigger=None,
                     style={'position': 'relative',
-                           "height":"100vh"},
+                           "height": "100vh"},
                 ),
                 fac.AntdContent(style={'background': '#f8f9fa'}),
             ],
@@ -142,8 +138,8 @@ app.layout = html.Div(
         )
 
     ],
-    style={"height":"100%",
-           "position":"relative"}
+    style={"height": "100%",
+           "position": "relative"}
 )
 
 
