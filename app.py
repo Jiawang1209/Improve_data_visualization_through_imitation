@@ -776,7 +776,7 @@ app.layout = html.Div(
                                                 style={"marginRight": "10px"},
                                             ),
                                             fac.AntdButton(
-                                                "EN/CH",
+                                                "CN",
                                                 id="lang-toggle-btn",
                                                 type="default",
                                             ),
@@ -884,6 +884,10 @@ def navigate_from_menu(current_key, current_pathname):
     Output("app-footer", "children"),
     Output("app-footer", "style"),
     Output("global-controls", "style"),
+    Output("theme-toggle-btn", "icon"),
+    Output("theme-toggle-btn", "type"),
+    Output("lang-toggle-btn", "children"),
+    Output("lang-toggle-btn", "type"),
     Input("url", "pathname"),
     Input("theme-toggle-btn", "nClicks"),
     Input("lang-toggle-btn", "nClicks"),
@@ -979,6 +983,11 @@ def render_by_route(pathname, theme_clicks, lang_clicks):
         "color": theme["text"],
     }
 
+    theme_btn_icon = fac.AntdIcon(icon="antd-sun") if is_bw_mode else fac.AntdIcon(icon="antd-moon")
+    theme_btn_type = "primary" if is_bw_mode else "default"
+    lang_btn_text = "EN" if lang == "en" else "CN"
+    lang_btn_type = "primary" if lang == "en" else "default"
+
     return (
         page_title,
         page_content,
@@ -992,6 +1001,10 @@ def render_by_route(pathname, theme_clicks, lang_clicks):
         render_site_footer(theme),
         footer_style,
         controls_style,
+        theme_btn_icon,
+        theme_btn_type,
+        lang_btn_text,
+        lang_btn_type,
     )
 
 
