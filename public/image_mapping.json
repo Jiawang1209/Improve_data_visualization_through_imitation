@@ -1,0 +1,72 @@
+{
+  "default_category": "other",
+  "categories": [
+    {
+      "key": "line",
+      "title_zh": "折线图",
+      "title_en": "Line Chart",
+      "icon": "antd-line-chart",
+      "description_zh": "适合展示趋势变化，支持多序列对比和时间维度分析。",
+      "description_en": "Good for trends over time and multi-series comparison.",
+      "keywords": ["line", "trend", "timeseries", "折线", "曲线", "趋势"]
+    },
+    {
+      "key": "scatter",
+      "title_zh": "散点图",
+      "title_en": "Scatter Plot",
+      "icon": "antd-dot-chart",
+      "description_zh": "适合观察变量相关性、离群点与聚类分布。",
+      "description_en": "Great for correlation, outliers, and cluster distribution.",
+      "keywords": ["scatter", "dot", "point", "散点", "点图"]
+    },
+    {
+      "key": "heatmap",
+      "title_zh": "热力图",
+      "title_en": "Heatmap",
+      "icon": "antd-area-chart",
+      "description_zh": "适合展示二维矩阵强度、空间热点和密度变化。",
+      "description_en": "Useful for matrix intensity, hotspots, and density shifts.",
+      "keywords": ["heatmap", "heat", "matrix", "热点", "热力", "矩阵"]
+    },
+    {
+      "key": "bubble",
+      "title_zh": "气泡图",
+      "title_en": "Bubble Chart",
+      "icon": "antd-bulb",
+      "description_zh": "适合展示三维信息：横轴、纵轴与气泡大小。",
+      "description_en": "Shows three dimensions: x, y, and bubble size.",
+      "keywords": ["bubble", "气泡", "气泡图"]
+    },
+    {
+      "key": "bar",
+      "title_zh": "柱形图",
+      "title_en": "Bar Chart",
+      "icon": "antd-bar-chart",
+      "description_zh": "适合展示类别间数值比较，例如分组对比和排序。",
+      "description_en": "Best for category comparison, grouping, and ranking.",
+      "keywords": ["bar", "column", "hist", "柱", "条形", "柱形", "柱状"]
+    },
+    {
+      "key": "tree",
+      "title_zh": "进化树",
+      "title_en": "Phylogenetic Tree",
+      "icon": "antd-apartment",
+      "description_zh": "适合展示系统发育关系、层级结构和分支演化。",
+      "description_en": "Ideal for phylogeny, hierarchy, and branch evolution.",
+      "keywords": ["tree", "phylo", "clade", "dendro", "进化树", "系统发育", "树图"]
+    },
+    {
+      "key": "other",
+      "title_zh": "其他图表",
+      "title_en": "Other Charts",
+      "icon": "antd-app-store",
+      "description_zh": "未命中关键词的图片会自动归入此分类。",
+      "description_en": "Images unmatched by keywords are grouped here.",
+      "keywords": []
+    }
+  ],
+  "image_category_map": {
+    "example_scatter_01": "scatter",
+    "example_tree_01": "tree"
+  }
+}

@@ -2,6 +2,7 @@ from dash import html, dcc, no_update
 import feffery_antd_components as fac
 from dash.dependencies import Input, Output, State
 from pathlib import Path
+import json
 import re
 from server import app
 
@@ -30,7 +31,14 @@ def _load_images() -> list[str]:
 
 IMGS = _load_images()
 
-CHART_CATEGORIES = [
+MAPPING_CONFIG_PATH = Path("./public/image_mapping.json")
+
+
+def _normalize_text(value: str) -> str:
+    return re.sub(r"[_\-\s]+", "", value).lower()
+
+
+DEFAULT_CHART_CATEGORIES = [
     {
         "key": "line",
         "title_zh": "折线图",
@@ -96,6 +104,62 @@ CHART_CATEGORIES = [
     },
 ]
 
+
+def _load_mapping_config() -> tuple[list[dict], dict[str, str], str]:
+    categories = DEFAULT_CHART_CATEGORIES
+    overrides: dict[str, str] = {}
+    default_category = "other"
+
+    if not MAPPING_CONFIG_PATH.exists() or not MAPPING_CONFIG_PATH.is_file():
+        return categories, overrides, default_category
+
+    try:
+        config_data = json.loads(MAPPING_CONFIG_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return categories, overrides, default_category
+
+    config_categories = config_data.get("categories")
+    if isinstance(config_categories, list) and config_categories:
+        validated_categories = [
+            item
+            for item in config_categories
+            if isinstance(item, dict) and isinstance(item.get("key"), str)
+        ]
+        if validated_categories:
+            categories = validated_categories
+
+    category_keys = {item["key"] for item in categories if isinstance(item.get("key"), str)}
+    if "other" not in category_keys:
+        categories = categories + [
+            {
+                "key": "other",
+                "title_zh": "其他图表",
+                "title_en": "Other Charts",
+                "icon": "antd-app-store",
+                "description_zh": "未命中关键词的图片会自动归入此分类。",
+                "description_en": "Images unmatched by keywords are grouped here.",
+                "keywords": [],
+            }
+        ]
+        category_keys.add("other")
+
+    config_default_category = config_data.get("default_category")
+    if isinstance(config_default_category, str) and config_default_category in category_keys:
+        default_category = config_default_category
+
+    image_category_map = config_data.get("image_category_map")
+    if isinstance(image_category_map, dict):
+        for raw_name, category_key in image_category_map.items():
+            if not isinstance(raw_name, str) or not isinstance(category_key, str):
+                continue
+            if category_key not in category_keys:
+                continue
+            overrides[_normalize_text(raw_name)] = category_key
+
+    return categories, overrides, default_category
+
+
+CHART_CATEGORIES, IMAGE_CATEGORY_OVERRIDES, DEFAULT_CATEGORY_KEY = _load_mapping_config()
 CATEGORY_MAP = {item["key"]: item for item in CHART_CATEGORIES}
 
 I18N = {
@@ -160,14 +224,18 @@ def get_category_title(category_key: str, lang: str) -> str:
     category = CATEGORY_MAP.get(category_key)
     if not category:
         return tr(lang, "category_page")
-    return category["title_en"] if lang == "en" else category["title_zh"]
+    if lang == "en":
+        return category.get("title_en") or category.get("title_zh") or category_key
+    return category.get("title_zh") or category.get("title_en") or category_key
 
 
 def get_category_desc(category_key: str, lang: str) -> str:
     category = CATEGORY_MAP.get(category_key)
     if not category:
         return ""
-    return category["description_en"] if lang == "en" else category["description_zh"]
+    if lang == "en":
+        return category.get("description_en") or category.get("description_zh") or ""
+    return category.get("description_zh") or category.get("description_en") or ""
 
 
 def get_menu_items(lang: str) -> list[dict]:
@@ -178,8 +246,12 @@ def get_menu_items(lang: str) -> list[dict]:
                 "component": "Item",
                 "props": {
                     "key": category["key"],
-                    "title": category["title_en"] if lang == "en" else category["title_zh"],
-                    "icon": category["icon"],
+                    "title": (
+                        category.get("title_en") or category.get("title_zh") or category["key"]
+                        if lang == "en"
+                        else category.get("title_zh") or category.get("title_en") or category["key"]
+                    ),
+                    "icon": category.get("icon", "antd-app-store"),
                 },
             }
             for category in CHART_CATEGORIES
@@ -219,28 +291,34 @@ DEFAULT_THEME = get_theme_tokens(False)
 
 def _normalize_name(image_path: str) -> str:
     stem = Path(image_path).stem
-    return re.sub(r"[_\-\s]+", "", stem).lower()
+    return _normalize_text(stem)
 
 
 def _detect_category(image_path: str) -> str:
     normalized_name = _normalize_name(image_path)
+    override_category = IMAGE_CATEGORY_OVERRIDES.get(normalized_name)
+    if override_category:
+        return override_category
 
     for category in CHART_CATEGORIES:
         if category["key"] == "other":
             continue
 
-        for keyword in category["keywords"]:
-            normalized_keyword = re.sub(r"[_\-\s]+", "", keyword).lower()
+        for keyword in category.get("keywords", []):
+            normalized_keyword = _normalize_text(keyword)
             if normalized_keyword and normalized_keyword in normalized_name:
                 return category["key"]
 
-    return "other"
+    return DEFAULT_CATEGORY_KEY
 
 
 def _group_images_by_category(images: list[str]) -> dict[str, list[str]]:
     grouped = {category["key"]: [] for category in CHART_CATEGORIES}
     for image in images:
-        grouped[_detect_category(image)].append(image)
+        category_key = _detect_category(image)
+        if category_key not in grouped:
+            category_key = DEFAULT_CATEGORY_KEY if DEFAULT_CATEGORY_KEY in grouped else "other"
+        grouped[category_key].append(image)
 
     return grouped
 
